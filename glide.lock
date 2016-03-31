@@ -1,0 +1,16 @@
+hash: ee69c45ca83aa62e201675607a4f912a92a589c7160fde63c29b9aa71f450652
+updated: 2016-03-31T10:48:44.551587825+02:00
+imports:
+- name: github.com/blang/semver
+  version: aea32c919a18e5ef4537bbd283ff29594b1b0165
+- name: github.com/inconshreveable/mousetrap
+  version: 76626ae9c91c4f2a10f34cad8ce83ea42c93bb75
+- name: github.com/juju/errors
+  version: b2c7a7da5b2995941048f60146e67702a292e468
+- name: github.com/libgit2/git2go
+  version: 95793ac11dbca2f35770c690d9ba7e64d7018815
+- name: github.com/spf13/cobra
+  version: ee150b4fa235f90bd58abe1fc0d1dcef7e390356
+- name: github.com/spf13/pflag
+  version: 7f60f83a2c81bc3c3c0d5297f61ddfa68da9d3b7
+devImports: []
