@@ -48,9 +48,12 @@ func Release(kind string) error {
 	switch kind {
 	case Major:
 		last.Major++
+		last.Minor = 0
+		last.Patch = 0
 
 	case Minor:
 		last.Minor++
+		last.Patch = 0
 
 	case Patch:
 		last.Patch++
