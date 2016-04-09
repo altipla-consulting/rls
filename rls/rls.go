@@ -76,8 +76,8 @@ func Release(kind string) error {
 
 	log.Printf("Release:  %s", kind)
 	log.Printf("Version:  %s", last)
-	log.Printf("Commit:   %s", head.Target())
 	log.Printf("Message:  %s", commit.Message())
+	log.Printf("Commit:   %s", head.Target())
 	log.Printf("Author:   %s <%s>", commit.Author().Name, commit.Author().Email)
 	log.Printf("Date:     %s", commit.Author().When.Format("Mon 02 Jan 2006 15:04:05 -0700"))
 
