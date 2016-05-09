@@ -111,8 +111,8 @@ func Release(kind string) error {
 		},
 	}
 	refs := []string{
-		"refs/heads/master:refs/heads/master",
 		fmt.Sprintf("refs/tags/%[1]s:refs/tags/%[1]s", last),
+		"refs/heads/master:refs/heads/master",
 	}
 	if err := remote.Push(refs, &git.PushOptions{RemoteCallbacks: callbacks}); err != nil {
 		return errors.Trace(err)
