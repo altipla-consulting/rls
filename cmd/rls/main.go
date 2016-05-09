@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/juju/errors"
-	"gitlab.altiplaconsulting.net/ernesto/rls/cmd"
+	"git.altiplaconsulting.net/altipla/rls/cobracmd"
 )
 
 func main() {
@@ -14,7 +14,7 @@ func main() {
 }
 
 func run() error {
-	if err := cmd.RootCmd.Execute(); err != nil {
+	if err := cobracmd.RootCmd.Execute(); err != nil {
 		return errors.Trace(err)
 	}
 

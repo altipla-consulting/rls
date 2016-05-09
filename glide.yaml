@@ -1,4 +1,4 @@
-package: gitlab.altiplaconsulting.net/ernesto/rls
+package: git.altiplaconsulting.net/altipla/rls
 import:
 - package: github.com/juju/errors
 - package: github.com/spf13/cobra

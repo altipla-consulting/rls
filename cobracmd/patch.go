@@ -1,9 +1,9 @@
-package cmd
+package cobracmd
 
 import (
 	"log"
 
-	"gitlab.altiplaconsulting.net/ernesto/rls/rls"
+	"git.altiplaconsulting.net/altipla/rls/rls"
 
 	"github.com/juju/errors"
 	"github.com/spf13/cobra"
