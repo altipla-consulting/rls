@@ -74,14 +74,15 @@ func run() error {
 	}
 
 	remoteBranch, err := repo.LookupBranch("origin/release", git.BranchRemote)
-	if err != nil {
+	if err != nil && !git.IsErrorCode(err, git.ErrNotFound) {
 		return errors.Trace(err)
-	}
-	defer remoteBranch.Free()
+	} else if err == nil {
+		defer remoteBranch.Free()
 
-	if remoteBranch.Target().Equal(head.Target()) {
-		log.Println("The latest commit is already released!")
-		return nil
+		if remoteBranch.Target().Equal(head.Target()) {
+			log.Println("The latest commit is already released!")
+			return nil
+		}
 	}
 
 	log.Printf("Message:  %s", lastCommit.Message())
