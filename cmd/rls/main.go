@@ -1,15 +1,15 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
-	"fmt"
 
 	"github.com/juju/errors"
 	"github.com/libgit2/git2go"
 )
 
-const releaseBranchName = "test2"
+const releaseBranchName = "release"
 
 func main() {
 	if err := run(); err != nil {
@@ -37,7 +37,7 @@ func run() error {
 
 	lastCommit, err := repo.LookupCommit(head.Target())
 	if err != nil {
-	  return errors.Trace(err)
+		return errors.Trace(err)
 	}
 	defer lastCommit.Free()
 
@@ -46,10 +46,10 @@ func run() error {
 		if git.IsErrorCode(err, git.ErrNotFound) {
 			branch, err = repo.CreateBranch(releaseBranchName, lastCommit, false)
 			if err != nil {
-			  return errors.Trace(err)
+				return errors.Trace(err)
 			}
 		} else {
-	  	return errors.Trace(err)
+			return errors.Trace(err)
 		}
 	}
 	defer branch.Free()
@@ -66,8 +66,9 @@ func run() error {
 
 	modifiedBranch, err := branch.SetTarget(head.Target(), lastCommit.Message())
 	if err != nil {
-	  return errors.Trace(err)
+		return errors.Trace(err)
 	}
+	defer modifiedBranch.Free()
 
 	remote, err := repo.Remotes.Lookup("origin")
 	if err != nil {
