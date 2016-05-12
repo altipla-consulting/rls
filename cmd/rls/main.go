@@ -54,6 +54,36 @@ func run() error {
 	}
 	defer branch.Free()
 
+	remote, err := repo.Remotes.Lookup("origin")
+	if err != nil {
+		return errors.Trace(err)
+	}
+	defer remote.Free()
+
+	callbacks := git.RemoteCallbacks{
+		CredentialsCallback: func(url string, usernameFromURL string, allowedTypes git.CredType) (git.ErrorCode, *git.Cred) {
+			code, credentials := git.NewCredSshKeyFromAgent(usernameFromURL)
+			return git.ErrorCode(code), &credentials
+		},
+		CertificateCheckCallback: func(cert *git.Certificate, valid bool, hostname string) git.ErrorCode {
+			return 0
+		},
+	}
+	if err := remote.Fetch([]string{}, &git.FetchOptions{RemoteCallbacks: callbacks}, ""); err != nil {
+		return errors.Trace(err)
+	}
+
+	remoteBranch, err := repo.LookupBranch("origin/release", git.BranchRemote)
+	if err != nil {
+		return errors.Trace(err)
+	}
+	defer remoteBranch.Free()
+
+	if remoteBranch.Target().Equal(head.Target()) {
+		log.Println("The latest commit is already released!")
+		return nil
+	}
+
 	log.Printf("Message:  %s", lastCommit.Message())
 	log.Printf("Commit:   %s", head.Target())
 	log.Printf("Author:   %s <%s>", lastCommit.Author().Name, lastCommit.Author().Email)
@@ -70,25 +100,20 @@ func run() error {
 	}
 	defer modifiedBranch.Free()
 
-	remote, err := repo.Remotes.Lookup("origin")
+	refs := []string{
+		fmt.Sprintf("refs/heads/%[1]s:refs/heads/%[1]s", releaseBranchName),
+	}
+
+	remoteHead, err := repo.LookupBranch("origin/master", git.BranchRemote)
 	if err != nil {
 		return errors.Trace(err)
 	}
-	defer remote.Free()
+	defer remoteHead.Free()
 
-	callbacks := git.RemoteCallbacks{
-		CredentialsCallback: func(url string, usernameFromURL string, allowedTypes git.CredType) (git.ErrorCode, *git.Cred) {
-			code, credentials := git.NewCredSshKeyFromAgent(usernameFromURL)
-			return git.ErrorCode(code), &credentials
-		},
-		CertificateCheckCallback: func(cert *git.Certificate, valid bool, hostname string) git.ErrorCode {
-			return 0
-		},
+	if !remoteHead.Target().Equal(head.Target()) {
+		refs = append(refs, "refs/heads/master:refs/heads/master")
 	}
-	refs := []string{
-		fmt.Sprintf("refs/heads/%[1]s:refs/heads/%[1]s", releaseBranchName),
-		"refs/heads/master:refs/heads/master",
-	}
+
 	if err := remote.Push(refs, &git.PushOptions{RemoteCallbacks: callbacks}); err != nil {
 		return errors.Trace(err)
 	}
