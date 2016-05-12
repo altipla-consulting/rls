@@ -9,7 +9,7 @@ import (
 	"github.com/libgit2/git2go"
 )
 
-const releaseBranchName = "test"
+const releaseBranchName = "test2"
 
 func main() {
 	if err := run(); err != nil {
