@@ -1,0 +1,11 @@
+
+stages:
+- golang:
+    project: github.com/altipla-consulting/rls
+    package: cmd/rls
+
+- cloudStorage:
+    bucket: altipla-artifacts
+    public: true
+    files:
+    - bin/rls

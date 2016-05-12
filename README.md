@@ -1,4 +1,4 @@
 
 # rls
 
-Etiqueta una nueva versión usando semver y la sube al repositorio.
+Prepara una nueva versión de la aplicación.

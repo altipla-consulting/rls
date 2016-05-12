@@ -1,7 +1,4 @@
-package: git.altiplaconsulting.net/altipla/rls
+package: github.com/altipla-consulting/rls
 import:
 - package: github.com/juju/errors
-- package: github.com/spf13/cobra
-- package: github.com/spf13/pflag
-- package: github.com/blang/semver
 - package: github.com/libgit2/git2go
