@@ -25,7 +25,7 @@ pipeline "build" {
 pipeline "deploy" {
   step {
     type = "shell"
-    cmd = "mv tmp/builder tmp/builder.${TAG}"
+    cmd = "mv tmp/rls tmp/rls.${TAG}"
   }
 
   step {
@@ -46,6 +46,6 @@ pipeline "deploy" {
 
   step {
     type = "shell"
-    cmd = "rm tmp/builder.${TAG}"
+    cmd = "rm tmp/rls.${TAG}"
   }
 }
