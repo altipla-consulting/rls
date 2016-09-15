@@ -24,6 +24,11 @@ pipeline "build" {
 
 pipeline "deploy" {
   step {
+    type = "shell"
+    cmd = "mv tmp/builder tmp/builder.${TAG}"
+  }
+
+  step {
     type = "storage"
     bucket = "altipla-artifacts"
     path = "rls"
@@ -37,5 +42,10 @@ pipeline "deploy" {
   step {
     type = "git-tag"
     name = "${TAG}"
+  }
+
+  step {
+    type = "shell"
+    cmd = "rm tmp/builder.${TAG}"
   }
 }
