@@ -2,8 +2,6 @@
 
 set -eu
 
-LIBGIT2_VERSION="0.24.0"
-
 go get -d github.com/libgit2/git2go
 cd $GOPATH/src/github.com/libgit2/git2go
 

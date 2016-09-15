@@ -5,6 +5,7 @@ MAINTAINER Ernesto Alejo <ernesto@altiplaconsulting.com>
 RUN apt-get update && \
     apt-get install -y pkg-config cmake build-essential
 
+ENV LIBGIT2_VERSION 0.24.0
 COPY tools/install-libgit2.sh /opt/
 RUN /opt/install-libgit2.sh
 
