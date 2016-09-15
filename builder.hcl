@@ -11,11 +11,11 @@ pipeline "build" {
   step {
     type = "docker-shell"
     image = "rls"
-    volume {
+    volume "code" {
       source = "."
       dest = "/go/src/github.com/altipla-consulting/rls"
     }
-    volume {
+    volume "binary" {
       source = "./tmp"
       dest = "/opt/build"
     }
