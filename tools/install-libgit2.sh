@@ -20,6 +20,6 @@ cd build
 
 cmake -DTHREADSAFE=ON -DBUILD_CLAR=OFF -DCMAKE_BUILD_TYPE="RelWithDebInfo" ..
 make
-sudo make install
+make install
 
-sudo ldconfig
+ldconfig
