@@ -3,9 +3,22 @@ tag = true
 
 pipeline "build" {
   step {
-    type = "golang"
-    project = "github.com/altipla-consulting/rls"
-    package = "cmd/rls"
+    type = "docker"
+    image = "rls"
+    context = "."
+  }
+
+  step {
+    type = "docker-shell"
+    image = "rls"
+    volume {
+      source = "."
+      dest = "/go/src/github.com/altipla-consulting/rls"
+    }
+    volume {
+      source = "./tmp"
+      dest = "/opt/build"
+    }
   }
 }
 
