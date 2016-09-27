@@ -9,10 +9,10 @@ rm -rf tmp
 mkdir tmp
 cd tmp
 
-wget -O libgit2-${LIBGIT2_VERSION}.tar.gz https://github.com/libgit2/libgit2/archive/v${LIBGIT2_VERSION}.tar.gz
-tar -xzvf libgit2-${LIBGIT2_VERSION}.tar.gz
+wget -O libgit2-$LIBGIT2_VERSION.tar.gz https://github.com/libgit2/libgit2/archive/v$LIBGIT2_VERSION.tar.gz
+tar -xzvf libgit2-$LIBGIT2_VERSION.tar.gz
 
-cd libgit2-${LIBGIT2_VERSION}
+cd libgit2-$LIBGIT2_VERSION
 mkdir build
 cd build
 
